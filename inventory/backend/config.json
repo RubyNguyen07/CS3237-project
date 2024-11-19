@@ -1,0 +1,22 @@
+{
+    "connection": {
+        "host": "0.0.0.0",
+        "port": 5432,
+        "user": "postgres",
+        "password": "",
+        "db": "inventory"
+    },
+    "ml": {
+        "table": "inventory",
+        "columns": [
+            "startOfWeek",
+            "chickenOrder",
+            "fishOrder",
+            "saladOrder",
+            "predictedChickenOrder",
+            "predictedFishOrder",
+            "predictedSaladOrder"
+        ],
+        "id": "id"
+    }
+}

@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "driver/ledc.h"
 #include "CommandProcessor.h"
 
 const char *words[] = {
