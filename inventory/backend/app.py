@@ -19,20 +19,27 @@ conn = psycopg2.connect(db_engine())
 
 def start_of_week(givenDate):
     # Adjust `given_date` to Monday (start of the week)
+    # date_object = datetime.strptime(givenDate, "%Y-%m-%d").date()
+    # print(date_object)
+    startOfWeek = givenDate - timedelta(days=givenDate.weekday())
+    return startOfWeek.strftime("%Y-%m-%d")
+
+def start_of_week_predict(givenDate):
+    # Adjust `given_date` to Monday (start of the week)
     date_object = datetime.strptime(givenDate, "%Y-%m-%d").date()
-    print(date_object)
     startOfWeek = date_object - timedelta(days=date_object.weekday())
     return str(startOfWeek)
 
 # API to order 
-@app.route('/api/order', methods=['POST'])
+@app.route('/api/addorder', methods=['GET'])
 def order():
     try: 
-        data = request.get_json()
-        if data is None: 
-            return jsonify({"error": "No JSON data provided"}), 400
-        data["startOfWeek"] = start_of_week(data["givenDate"])
-        print(data)
+        data = {}
+        data["chickenOrder"] = request.args.get("chickenOrder")
+        data["fishOrder"]  = request.args.get("fishOrder")
+        data["saladOrder"]  = request.args.get("saladOrder")
+        data["startOfWeek"] = start_of_week(datetime.now())
+        # print(data)
         update_order(data, conn)
         return jsonify({'message': 'order updated'}), 200
     except Exception as e:
@@ -56,7 +63,7 @@ def predict():
     try: 
         givenDate = request.args.get("date")
         if givenDate:
-            startOfWeek = start_of_week(givenDate)
+            startOfWeek = start_of_week_predict(givenDate)
             input_data = get_data(startOfWeek, conn)
             if not input_data: 
                 return jsonify({'error': 'There has not been any data yet'}), 400
