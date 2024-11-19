@@ -60,7 +60,6 @@ function App() {
             <h1 style={{ justifySelf: 'center', color: "#fc7100" }}>Order List</h1>
             <ul className="horizontal-list" style={{ justifySelf: 'center', maxWidth: '100%' }}>
                 {currentOrders.map(order => (
-                    //   <li key={order[0]}>{format(new Date((order[1])), "dd-MM-yyyy") + " | " + order[2] + "," + order[3] + "," + order[4]}</li>
                     <li key={order[0]}>
                         <Card sx={{ display: 'flex', maxWidth: '100%', backgroundColor: '#fb8818' }}>
                             <CardMedia
@@ -115,7 +114,6 @@ function App() {
                                         </Typography>
                                     </DialogContent>
 
-                                    {/* </Box> */}
                                 </Dialog>
                             </CardActions>
                         </Card>

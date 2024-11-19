@@ -1,5 +1,3 @@
-""" init_db.py file """
-import numpy as np
 import pandas as pd
 import psycopg2
 from io import StringIO
@@ -16,8 +14,6 @@ CREATE TABLE IF NOT EXISTS inventory (
     saladOrder INTEGER DEFAULT 0
 );
 """
-
-get_data_sql = """select * from inventory order by startOfWeek ASC"""
 
 df = pd.read_csv("data/pastInventory.csv", index_col="id")
 test_size= 0.20 # 20% for testing
@@ -40,8 +36,6 @@ try:
     buffer.seek(0)
     cur.copy_from(buffer, "inventory", sep=",")
     conn.commit()
-    print("Insert finished.")
-    print(df)
     cur.close()
 except Exception as e:
     print("Problems:", str(e))

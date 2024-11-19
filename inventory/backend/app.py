@@ -8,7 +8,6 @@ from flask_cors import CORS
 
 
 filename = "random_forest_model.joblib"
-# Initialize Flask app
 app = Flask(__name__)
 CORS(app)  # Enables CORS for all routes and origins by default
 
@@ -18,9 +17,7 @@ loaded_model = joblib.load(filename)
 conn = psycopg2.connect(db_engine())
 
 def start_of_week(givenDate):
-    # Adjust `given_date` to Monday (start of the week)
-    # date_object = datetime.strptime(givenDate, "%Y-%m-%d").date()
-    # print(date_object)
+    # Adjust `given_date` to Monday (start of the week). given_date is now()
     startOfWeek = givenDate - timedelta(days=givenDate.weekday())
     return startOfWeek.strftime("%Y-%m-%d")
 
@@ -39,7 +36,6 @@ def order():
         data["fishOrder"]  = request.args.get("fishOrder")
         data["saladOrder"]  = request.args.get("saladOrder")
         data["startOfWeek"] = start_of_week(datetime.now())
-        # print(data)
         update_order(data, conn)
         return jsonify({'message': 'order updated'}), 200
     except Exception as e:
